@@ -1,0 +1,6 @@
+---
+- name: Install WSGI support
+  yum: name={{ item }} state=installed
+  with_items:
+  - mod_wsgi
+

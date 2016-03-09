@@ -1,0 +1,7 @@
+---
+- name: Set python.conf template for {{ _website_domain }}
+  template:
+    src: python.conf
+    dest: /etc/httpd/conf.d/{{ _website_domain }}.conf.d/python.conf
+  notify: verify config and restart httpd
+
