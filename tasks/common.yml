@@ -13,7 +13,6 @@
   with_items:
   - name_vhost.conf
   - mod_filter.conf
-  - remove_sslv3.conf
   - mod_status.conf
   - various.conf
   notify: restart httpd
