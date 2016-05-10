@@ -32,6 +32,9 @@
 - include: common_tls.yml
   when: _use_tls
 
+- include: common_python.yml
+  when: wsgi_script is defined and wsgi_script
+
 - file: state=directory path={{ document_root }} setype=httpd_sys_content_t owner=root mode=755 group=root
   when: document_root is defined
   name: Set document root configuration
@@ -72,6 +75,9 @@
   when: use_mod_sec
 
 - include: redirect_to_https.yml
+
+- include: python.yml
+  when: wsgi_script is defined and wsgi_script
 
 - include: hidden_service.yml
   when: use_hidden_service
