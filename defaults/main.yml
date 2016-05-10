@@ -10,3 +10,4 @@ use_tls: False
 aliases: []
 server_aliases: []
 redirects: []
+allow_app_signals: False
