@@ -4,15 +4,15 @@
   - letsencrypt
 
 - name: Set the variable for the root
-  set_fact: letsencrypt_root=/var/www/letsencrypt/{{ _website_domain }}
+  set_fact: letsencrypt_root=/var/www/letsencrypt/{{ _website_domain }}/
 
 #- user: system=yes name=_letsencrypt comment="Letsencrypt user, ansible created"
 
 - name: Create letsencrypt directory
-  file: state=directory path=/var/www/letsencrypt/ setype=httpd_sys_content_t owner=root mode=750 group=apache
+  file: state=directory path={{ item }} setype=httpd_sys_content_t owner=root mode=750 group=apache
   with_items:
-  - "{{ letsencrypt_root }}"
   - /var/www/letsencrypt/
+  - "{{ letsencrypt_root }}"
 
 - name: Deploy letsencrypt.conf httpd config
   template: src=letsencrypt.conf dest=/etc/httpd/conf.d/{{ _website_domain }}.conf.d/letsencrypt.conf

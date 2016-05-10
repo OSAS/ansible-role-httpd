@@ -7,3 +7,6 @@ mod_sec_detection_only: False
 use_mod_sec: False
 use_hidden_service: False
 use_tls: False
+aliases: []
+server_aliases: []
+redirects: []

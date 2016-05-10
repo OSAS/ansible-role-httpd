@@ -50,20 +50,16 @@
   when: website_user is defined
 
 - include: document_root.yml
-  when: document_root is defined
 
 - include: server_alias.yml
-  when: server_aliases is defined
 
 - set_fact: port=80
 - template: src=vhost.conf dest=/etc/httpd/conf.d/{{ _website_domain }}.conf owner=root group=apache mode=0644
   notify: verify config and restart httpd
 
 - include: redirect.yml
-  when: redirect is defined
 
 - include: redirects.yml
-  when: redirects is defined
 
 - include: aliases.yml
 
@@ -74,13 +70,11 @@
   when: use_freeipa
 
 - include: reverse_proxy.yml
-  when: reverse_proxy is defined
 
 - include: mod_security.yml
   when: use_mod_sec
 
 - include: redirect_to_https.yml
-  when: _force_tls
 
 - include: python.yml
   when: wsgi_script is defined and wsgi_script
