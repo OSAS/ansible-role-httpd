@@ -4,3 +4,9 @@
   with_items:
   - mod_wsgi
 
+- name: Set python_global.conf server-wide configuration
+  template:
+    src: python_global.conf
+    dest: /etc/httpd/conf.d/python_global.conf
+  notify: verify config and restart httpd
+
