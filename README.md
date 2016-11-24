@@ -76,7 +76,7 @@ $ cat deploy_web.yml
   roles:
   - role: httpd
     website_domain: foo.example.org
-    redirect_matches:
+    redirects:
     - src: "/blog/about"
       target: "/about"
     - src: "^/feed/(.*)"
