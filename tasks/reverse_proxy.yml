@@ -1,4 +1,4 @@
 - template:
     src: reverse_proxy.conf
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/reverse_proxy.conf"
+    dest: "{{ _vhost_confdir }}/reverse_proxy.conf"
   notify: verify config and restart httpd

@@ -22,7 +22,7 @@
 - name: Deploy letsencrypt.conf httpd config
   template:
     src: letsencrypt.conf
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/letsencrypt.conf"
+    dest: "{{ _vhost_confdir }}/letsencrypt.conf"
   when: website_domain is defined
   notify: verify config and restart httpd
 

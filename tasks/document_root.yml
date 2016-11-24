@@ -1,5 +1,5 @@
 - name: Install document root configuration
   template:
     src: document_root.conf
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/document_root.conf"
+    dest: "{{ _vhost_confdir }}/document_root.conf"
   notify: verify config and restart httpd

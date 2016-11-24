@@ -1,5 +1,5 @@
 - template:
     src: redirects.conf
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/redirects.conf"
+    dest: "{{ _vhost_confdir }}/redirects.conf"
   notify: verify config and restart httpd
   name: Set redirects.conf template for {{ _website_domain }}

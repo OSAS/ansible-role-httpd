@@ -157,6 +157,6 @@ $ cat deploy_piwik.yml
 
 However, some variable name are a bit generic (like use_tls), so beware of this as it can produes weird side effects.
 
-In order to let a role extend the httpd configuration, a role can drop files ending in .conf in /etc/httpd/conf.d/$DOMAIN.conf.d/.
+In order to let a role extend the httpd configuration, a role can drop files ending in .conf in /etc/httpd/conf.d/50\_$DOMAIN.conf.d/.
 The file will be included for TLS and non TLS vhost for now, which might cause some issues. This is planned to be fixed later
 to be able to support WSGI cleanly.
