@@ -1,6 +1,6 @@
 - name: Deploy mod_speling
   template:
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/mod_speling.conf"
+    dest: "{{ _vhost_confdir }}/mod_speling.conf"
     src: mod_speling.conf
     mode: 0644
   notify: verify config and restart httpd

@@ -1,5 +1,5 @@
 - template:
     src: aliases.conf
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/aliases.conf"
+    dest: "{{ _vhost_confdir }}/aliases.conf"
   notify: verify config and restart httpd
   name: Set aliases.conf template for {{ _website_domain }}
