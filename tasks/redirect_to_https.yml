@@ -1,5 +1,5 @@
 - file:
-    name: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/redirect_to_https.conf"
+    name: "{{ _vhost_confdir }}/redirect_to_https.conf"
     state: absent
   name: Set redirect_to_https.conf template for {{ _website_domain }}
   notify: verify config and restart httpd
