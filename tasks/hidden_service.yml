@@ -21,6 +21,6 @@
 
 - name: Deploy the httpd config for onion
   copy:
-    dest: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d/hidden_service.conf"
+    dest: "{{ _vhost_confdir }}/hidden_service.conf"
     content: "ServerAlias {{ onion_hostname }}"
   notify: verify config and restart httpd
