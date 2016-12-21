@@ -42,7 +42,7 @@
     owner: root
     mode: 0755
     group: root
-  when: document_root is defined
+  when: document_root is defined and not skip_document_root_creation
   name: Set document root configuration
 
 - file:
