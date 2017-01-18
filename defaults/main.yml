@@ -13,3 +13,4 @@ server_aliases: []
 redirects: []
 allow_app_signals: False
 wsgi_threads: 5
+skip_document_root_creation: False
