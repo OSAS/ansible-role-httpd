@@ -10,7 +10,8 @@ who may be different, the default setting do almost nothing, and in turn require
 The domain used for the vhost come from `website_domain`. If not given, it will take `ansible_fqdn` by default.
 
 One of the most basic usage is serving static web pages. For that, the variable `document_root` will need to
-be set. If none is provided, no document root will be set.
+be set. If none is provided, no document root will be set. You can use the `document_root_group` parameter
+if you need this directory to be owner by a specific group (or it defaults to 'root').
 
 # TLS support
 

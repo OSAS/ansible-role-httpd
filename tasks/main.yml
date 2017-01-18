@@ -40,8 +40,8 @@
     path: "{{ document_root }}"
     setype: httpd_sys_content_t
     owner: root
-    mode: 0755
-    group: root
+    group: "{{ document_root_group | default('root') }}"
+    mode: 0775
   when: document_root is defined
   name: Set document root configuration
 
