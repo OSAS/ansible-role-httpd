@@ -2,18 +2,49 @@ Ansible module used by OSAS to manage Apache httpd.
 
 [![Build Status](https://travis-ci.org/OSAS/ansible-role-httpd.svg?branch=master)](https://travis-ci.org/OSAS/ansible-role-httpd)
 
-# Adding a Vhost
+# Role Logic
 
 The role is quite flexible and support all kind of setup. Since it serve as the basis for others roles
 who may be different, the default setting do almost nothing, and in turn require almost nothing.
 
+A role can depend on this one and ensure the webserver is properly installed. There are no settings to
+provide. A defaut vhost using the canonical name of the machine (as defined by `ansible_fqdn`) is installed
+by default if not already defined (see _Adding a Vhost_ chapter).
+
+In order to allow defining settings  various levels, this role provides extra entrypoints which are
+intended to be used with the `include_role` module. Main entrypoints are:
+* server: setup server-wide settings; there is no settings in the core but additional features may add some
+* vhost: define a vhost (see _Adding a Vhost_ chapter)
+Some additional features may add extra entrypoints which would be described in their own chapter.
+
+If default server-wide settings are fine in your project, then you don't need to call the `server` entrypoint.
+If you call it multiple times, previous settings would be overriden.
+
+# Adding a Vhost
+
+This feature use the `vhost` entrypoint.
+
 The domain used for the vhost come from `website_domain`. If not given, it will take `ansible_fqdn` by default.
+If you call it multiple times with the same `website_domain`, previous settings would be overriden.
 
 One of the most basic usage is serving static web pages. For that, the variable `document_root` will need to
 be set. If none is provided, no document root will be set. You can use the `document_root_group` parameter
 if you need this directory to be owner by a specific group (or it defaults to 'root').
 
+```
+- hosts: web
+  tasks:
+    - include_role:
+        name: httpd
+        tasks_from: vhost
+      vars:
+        website_domain: www.example.com
+        document_root: /var/www/www.example.com
+```
+
 # TLS support
+
+This feature use the `vhost` entrypoint.
 
 This role can be used to setup and enable TLS support in differents ways, using
 either letsencrypt, freeipa or a direct ssl certificate drop. The configuration
@@ -42,7 +73,10 @@ For people who prefer to use certificates signed manually by a CA, the option `u
 enable SSL/TLS without managing the certificate. The key should be placed on /etc/pki/tls/private/$DOMAIN.key
 the certificate in /etc/pki/tls/certs/$DOMAIN.crt and the CA certificate in /etc/pki/tls/certs/$DOMAIN.ca.crt.
 
-# Others settings
+# Others vhost settings
+
+These features use the `vhost` entrypoint.
+
 ## ModSecurity
 
 A administrator can decide to enable ModSecurity by setting `use_mod_sec: True`. This will enable a regular
@@ -134,30 +168,65 @@ But usually, for cleaner URL, a redirect is preferred.
 Administrators wishing to use mod_speling can juse use `use_mod_speling: True` in the definition
 of the vhost.
 
+# Python support
+
+Running Python scripts is supported using WSGI.
+
+## Script instance
+
+This feature use the `wsgi` entrypoint.
+
+The vhost defined in `website_domain` would have this script associated to its root. The vhost then needs
+to be defined (see _Adding a Vhost_ chapter).
+
+`wsgi_instance` needs to define a short and unique service name (allowed characters whould match the `name`
+setting of the WSGIDaemonProcess directive). `wsgi_script` needs to be set to the script absolute path.
+You also need to set the user and group the script process will run as, using `wsgi_user`; the group must
+have the same name, and both must already exist. Last you need to set the home of the application (working
+directory) using `wsgi_home`.
+
+The number of threads allocated to the Python instance is defined using `wsgi_threads` and defaults to 5.
+
+```
+- hosts: web
+  tasks:
+    - include_role:
+        name: httpd
+        tasks_from: wsgi
+      vars:
+        website_domain: www.example.com
+        use_wsgi: True
+        wsgi_instance: myservice
+        wsgi_script: "/usr/share/myservice/www/myservice.wsgi"
+        wsgi_user: "myuser"
+        wsgi_home: /var/www/www.example.com/app
+```
+
+## Server configuration
+
+This feature use the `server` entrypoint.
+
+Usually applications do not need to register their own signal handlers, but some may need it, like Mailman 3;
+In this case you can set `wsgi_allow_app_signals` to True, which will ensure WSGIRestrictSignal is off.
+
+```
+- hosts: web
+  tasks:
+    - include_role:
+        name: httpd
+        tasks_from: server
+        use_wsgi: True
+        wsgi_allow_app_signals: True
+```
+
 # Extend the role
 
 In order to compose more complex roles by combining (and using depends), the installed configuration also
-support to include part of the configuration.
-
-Due to the way ansible work, variable set on the first role will be inherited by the httpd role if set on the role
-level. Thus, this permit to keep the same variable name, like this:
-
-```
-$ cat roles/piwik/meta/main.yml
----
-dependencies:
-- { role: mariadb }
-- { role: httpd, document_root: /var/www/piwik/, use_freeipa: True }
-
-$ cat deploy_piwik.yml
-- hosts: piwik
-  roles:
-  - role: piwik
-    website_domain: piwik.example.org
-```
-
-However, some variable name are a bit generic (like use_tls), so beware of this as it can produes weird side effects.
+support to include part of the configuration. Nevertheless the easiest way to extend the logic nowadays is
+to create a higher level role and use `include_role` in its tasks. You can find a real life example in the
+[mailing-lists-server role](https://gitlab.com/osas/ansible-role-mailing-lists-server).
 
 In order to let a role extend the httpd configuration, a role can drop files ending in .conf in /etc/httpd/conf.d/$DOMAIN.conf.d/.
 The file will be included for TLS and non TLS vhost for now, which might cause some issues. This is planned to be fixed later
 to be able to support WSGI cleanly.
+

@@ -1,0 +1,20 @@
+---
+
+- include: compat.yml
+
+- set_fact:
+    _use_tls: False
+    _force_tls: False
+    _vhost_conffile_prefix: "/etc/httpd/conf.d/{{ _website_domain }}"
+    _vhost_confdir: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d"
+
+- name: Set use_tls
+  set_fact:
+    _use_tls: True
+  when: use_letsencrypt or use_freeipa or use_tls
+
+- name: Set force_tls if force_tls is defined
+  set_fact:
+    _force_tls: "{{ force_tls }}"
+  when: force_tls
+

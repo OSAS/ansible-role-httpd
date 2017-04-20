@@ -1,13 +1,23 @@
 ---
-- name: Set wsgi.conf template for {{ _website_domain }}
+
+- name: Include common vhost variables
+  include: vhost_vars.yml
+
+- include: common_wsgi.yml
+  when: _httpd_common_wsgi is not defined
+
+- name: Set wsgi.conf template for WSGI instance {{ wsgi_instance }}
   template:
     src: wsgi.conf
-    dest: "{{ _vhost_confdir }}/wsgi.conf"
+    dest: "{{ _vhost_confdir }}/wsgi_{{ wsgi_instance }}.conf"
   notify: verify config and restart httpd
 
 # TODO remove after May 2018
 - file:
-    name: "{{ _vhost_confdir }}/python.conf"
+    name: "{{ item }}"
     state: absent
+  with_items:
+    - "{{ _vhost_confdir }}/python.conf"
+    - "{{ _vhost_confdir }}/wsgi.conf"
   notify: verify config and restart httpd
 
