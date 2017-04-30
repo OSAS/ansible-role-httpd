@@ -5,3 +5,8 @@
     dest: "{{ _vhost_confdir }}/python.conf"
   notify: verify config and restart httpd
 
+- name: Deploy WSGIDaemon for {{ _website_domain }}
+  template:
+    src: wsgi_daemon.conf
+    dest: /etc/httpd/conf.d/wsgi_daemon_{{ _website_domain }}.conf
+  notify: verify config and restart httpd
