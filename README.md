@@ -134,6 +134,16 @@ But usually, for cleaner URL, a redirect is preferred.
 Administrators wishing to use mod_speling can juse use `use_mod_speling: True` in the definition
 of the vhost.
 
+## Using WSGI Scripts
+
+This role supports mapping / to a single WSGI script per-vhost.
+
+If the variable 'wsgi_script' is set to the script absolute path, then this feature is activated.
+You also need to set the user and group the script process will run as, using 'wsgi_user'; the
+group must have the same name, and both must already exist. Last you need to set the maximum number of threads needed for this application in 'wsgi_threads'.
+
+Usually applications do not need to register their own signal handlers, but some may need it, like Mailman 3; In this case you can set 'allow_app_signals' to true, which will ensure WSGIRestrictSignal is off.
+
 # Extend the role
 
 In order to compose more complex roles by combining (and using depends), the installed configuration also
