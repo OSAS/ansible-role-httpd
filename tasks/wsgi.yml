@@ -6,6 +6,12 @@
 - include: common_wsgi.yml
   when: _httpd_common_wsgi is not defined
 
+- name: Set wsgi_daemon.conf template for WSGI instance {{ wsgi_instance }}
+  template:
+    src: wsgi_daemon.conf
+    dest: "/etc/httpd/conf.d/wsgi_daemon_{{ wsgi_instance }}.conf"
+  notify: verify config and restart httpd
+
 - name: Set wsgi.conf template for WSGI instance {{ wsgi_instance }}
   template:
     src: wsgi.conf
