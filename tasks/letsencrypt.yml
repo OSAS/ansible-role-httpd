@@ -23,7 +23,6 @@
   template:
     src: letsencrypt.conf
     dest: "{{ _vhost_confdir }}/letsencrypt.conf"
-  when: website_domain is defined
   notify: verify config and restart httpd
 
 # need to restart httpd now, since we need
