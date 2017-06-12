@@ -34,6 +34,7 @@
   command: certbot --text --renew-by-default --rsa-key-size 3072 --email root+lets-{{ _website_domain }}@{{ mail_domain | default(ansible_domain) }} --domains {{ _website_domain }} --agree-tos --webroot --webroot-path {{ letsencrypt_root }} certonly
   args:
     creates: "/etc/letsencrypt/live/{{ _website_domain }}/privkey.pem"
+  notify: reload httpd
 
 - name: Deploy the cron to renew
   copy:
