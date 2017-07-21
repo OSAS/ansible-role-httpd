@@ -65,6 +65,8 @@
 
 - include: mod_speling.yml
 
+- include: various_security.yml
+
 - set_fact:
     port: 80
 

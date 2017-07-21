@@ -1,0 +1,5 @@
+- name: Install server alias configuration
+  template:
+    src: various_security.conf
+    dest: "{{ _vhost_confdir }}/various_security.conf"
+  notify: verify config and restart httpd

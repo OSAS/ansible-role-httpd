@@ -134,6 +134,17 @@ But usually, for cleaner URL, a redirect is preferred.
 Administrators wishing to use mod_speling can juse use `use_mod_speling: True` in the definition
 of the vhost.
 
+## Security settings
+
+By default, several HTTP headers are set to protect the website. There is currently no way to disable them, but
+this will be added if needed. The current settings are:
+
+- Content-Security-Policy, set to "frame-ancestors 'none'"
+- X-Frame-Options, set to DENY
+- X-Content-Type-Options: nosniff
+
+See https://wiki.mozilla.org/Security/Guidelines/Web_Security for more information.
+
 # Extend the role
 
 In order to compose more complex roles by combining (and using depends), the installed configuration also
