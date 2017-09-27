@@ -14,7 +14,7 @@
     setype: httpd_sys_content_t
     owner: root
     mode: "u+rwx,g+rx,o-rwx"
-    group: apache
+    group: "{{ httpd_usergroup }}"
   with_items:
   - /var/www/letsencrypt/
   - "{{ letsencrypt_root }}"
@@ -45,7 +45,7 @@
   file:
     state: link
     src: "/etc/letsencrypt/live/{{ _website_domain }}/{{ item.src }}"
-    dest: "/etc/pki/tls/{{ item.dst }}"
+    dest: "{{ pki_dir }}/{{ item.dst }}"
   with_items:
   - { src: 'privkey.pem',   dst: 'private/{{ _website_domain }}.key' }
   - { src: 'cert.pem',      dst: 'certs/{{ _website_domain }}.crt' }

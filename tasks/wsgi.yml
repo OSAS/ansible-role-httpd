@@ -1,5 +1,8 @@
 ---
 
+- name: Include distribution variables
+  include: distro_vars.yml
+
 - name: Include common vhost variables
   include: vhost_vars.yml
 
@@ -9,7 +12,7 @@
 - name: Set wsgi_daemon.conf template for WSGI instance {{ wsgi_instance }}
   template:
     src: wsgi_daemon.conf
-    dest: "/etc/httpd/conf.d/wsgi_daemon_{{ wsgi_instance }}.conf"
+    dest: "{{ httpd_global_confdir }}/wsgi_daemon_{{ wsgi_instance }}.conf"
   notify: verify config and restart httpd
 
 - name: Set wsgi.conf template for WSGI instance {{ wsgi_instance }}

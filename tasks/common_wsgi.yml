@@ -1,20 +1,24 @@
 ---
 - name: Install WSGI support
   package:
-    name: "{{ item }}"
+    name: "{{ httpd_wsgi_package }}"
     state: present
-  with_items:
-  - mod_wsgi
+
+- name: Enable wsgi httpd module
+  apache2_module:
+    name: wsgi
+    state: present
+  when: ansible_os_family == "Debian"
 
 - name: Set wsgi_global.conf server-wide configuration
   template:
     src: wsgi_global.conf
-    dest: /etc/httpd/conf.d/wsgi_global.conf
+    dest: "{{ httpd_global_confdir }}/wsgi_global.conf"
   notify: verify config and restart httpd
 
 # TODO remove after May 2018
 - file:
-    name: /etc/httpd/conf.d/python_global.conf
+    name: "{{ httpd_global_confdir }}/python_global.conf"
     state: absent
   notify: verify config and restart httpd
 

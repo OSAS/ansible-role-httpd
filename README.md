@@ -139,8 +139,8 @@ In order to deploy website before launch, we traditionnaly protect them with a s
 using a .htpasswd file. The 2 variables `website_user` and `website_password` can be set and will automatically
 set the password protection.
 
-Removing the password protection requires to remove the 2 variables and remove the /etc/httpd/$DOMAIN.htpasswd
-file created.
+Removing the password protection requires to remove the 2 variables and remove the htpasswd file created
+(`/etc/httpd/$DOMAIN.htpasswd` on RedHat systems, `/etc/apache2/$DOMAIN.htpasswd` on Debian).
 
 ## Server aliases
 
@@ -223,7 +223,7 @@ support to include part of the configuration. Nevertheless the easiest way to ex
 to create a higher level role and use `include_role` in its tasks. You can find a real life example in the
 [mailing-lists-server role](https://gitlab.com/osas/ansible-role-mailing-lists-server).
 
-In order to let a role extend the httpd configuration, a role can drop files ending in .conf in /etc/httpd/conf.d/$DOMAIN.conf.d/.
+In order to let a role extend the httpd configuration, a role can drop files ending in .conf in `/etc/httpd/conf.d/$DOMAIN.conf.d/` on RedHat systems or `/etc/apache2/site-enabled/$DOMAIN.conf.d/` on Debian.
 The file will be included for TLS and non TLS vhost for now, which might cause some issues. This is planned to be fixed later
 to be able to support WSGI cleanly.
 

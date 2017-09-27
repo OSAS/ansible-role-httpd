@@ -1,0 +1,17 @@
+---
+httpd_package: httpd
+httpd_service: httpd
+httpd_usergroup: apache
+httpd_confdir: /etc/httpd
+httpd_global_confdir: /etc/httpd/conf.d
+httpd_vhost_confdir: /etc/httpd/conf.d
+httpd_log_dir: logs
+httpd_logrotate: /etc/logrotate.d/httpd
+httpd_tls: mod_ssl
+httpd_wsgi_package: mod_wsgi
+httpd_security_package: mod_security_crs # depends on mod_security
+httpd_security_conffile: mod_security.conf
+pki_dir: /etc/pki/tls
+logrotate_package: logrotate
+python_passlib_package: python-passlib
+

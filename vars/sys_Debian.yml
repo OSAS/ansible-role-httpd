@@ -1,0 +1,18 @@
+---
+httpd_package: apache2
+httpd_service: apache2
+httpd_usergroup: www-data
+httpd_confdir: /etc/apache2
+# there are no modules to handle a2enconf/a2ensite yet and we want them always enabled anyway
+httpd_global_confdir: /etc/apache2/conf-enabled
+httpd_vhost_confdir: /etc/apache2/sites-enabled
+httpd_log_dir: /var/log/apache2
+httpd_logrotate: /etc/logrotate.d/apache2
+httpd_tls: # included in apache package
+httpd_wsgi_package: libapache2-mod-wsgi
+httpd_security_package: libapache2-mod-security2
+httpd_security_conffile: security.conf
+pki_dir: /etc/ssl
+logrotate_package: logrotate
+python_passlib_package: python-passlib
+

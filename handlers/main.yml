@@ -1,15 +1,15 @@
 ---
 - name: verify config and restart httpd
-  command: service httpd configtest
+  command: /usr/sbin/apachectl configtest
   args:
     warn: False
   notify: restart httpd
 
 - name: restart httpd
-  service: name=httpd state=restarted
+  service: name={{ httpd_service }} state=restarted
 
 - name: reload httpd
   service:
-    name: httpd
+    name: "{{ httpd_service }}"
     state: reloaded
 

@@ -1,3 +1,11 @@
+---
+
+- name: Enable speling httpd module
+  apache2_module:
+    name: speling
+    state: present
+  when: ansible_os_family == "Debian"
+
 - name: Deploy mod_speling
   template:
     dest: "{{ _vhost_confdir }}/mod_speling.conf"

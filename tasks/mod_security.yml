@@ -1,16 +1,20 @@
 ---
 - package:
-    name: "{{ item }}"
+    name: "{{ httpd_security_package }}"
     state: present
-  with_items:
-  - mod_security
-  - mod_security_crs
   notify: verify config and restart httpd
   name: Install mod_security packages
 
+- name: Enable security httpd module
+  apache2_module:
+    name: security2
+    state: present
+  when: ansible_os_family == "Debian"
+
+# if this does not match it's ok because the module's default if Off
 - name: Disable mod_security for all vhost
   lineinfile:
-    dest: /etc/httpd/conf.d/mod_security.conf
+    dest: "{{ httpd_global_confdir }}/{{ httpd_security_conffile }}"
     regexp: '^(\s*)SecRuleEngine '
     line: "\\1SecRuleEngine Off"
     backrefs: yes

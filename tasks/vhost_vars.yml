@@ -5,8 +5,8 @@
 - set_fact:
     _use_tls: False
     _force_tls: False
-    _vhost_conffile_prefix: "/etc/httpd/conf.d/{{ _website_domain }}"
-    _vhost_confdir: "/etc/httpd/conf.d/{{ _website_domain }}.conf.d"
+    _vhost_conffile_prefix: "{{ httpd_vhost_confdir }}/{{ _website_domain }}"
+    _vhost_confdir: "{{ httpd_vhost_confdir }}/{{ _website_domain }}.conf.d"
 
 - name: Set use_tls
   set_fact:

@@ -1,0 +1,8 @@
+---
+
+- name: Load settings based on distribution
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "sys_{{ ansible_distribution }}.yml"
+    - "sys_{{ ansible_os_family }}.yml"
+

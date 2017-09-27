@@ -1,5 +1,8 @@
 ---
 
+- name: Include distribution variables
+  include: distro_vars.yml
+
 - name: Include common setup of httpd
   include: common.yml
   when: httpd_common is not defined
