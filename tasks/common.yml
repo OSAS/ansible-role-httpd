@@ -47,9 +47,10 @@
 
 - name: Set log retention configuration
   lineinfile:
-    dest: /etc/logrotate.conf
-    regexp: "^rotate"
-    line: "rotate {{ log_retention_week }}"
+    dest: /etc/logrotate.d/httpd
+    regexp: "^(\s+)rotate"
+    backrefs: yes
+    line: "\1rotate {{ log_retention_week }}"
     state: present
   when: log_retention_week is defined
 
