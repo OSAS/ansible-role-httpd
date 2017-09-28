@@ -9,10 +9,10 @@
 
 - name: Include common setup of httpd
   include: common.yml
-  when: httpd_common is not defined
+  when: _httpd_common is not defined
 
 - include: common_tls.yml
-  when: _use_tls and httpd_common_tls is not defined
+  when: _use_tls and _httpd_common_tls is not defined
 
 - file:
     state: directory
