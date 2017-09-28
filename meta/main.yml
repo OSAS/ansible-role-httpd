@@ -16,6 +16,4 @@ galaxy_info:
     - 7
   categories:
   - system
-dependencies:
-  - role: tor
-    when: use_hidden_service
+dependencies: []

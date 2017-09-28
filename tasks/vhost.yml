@@ -78,6 +78,7 @@
   when: wsgi_script is defined and wsgi_script
 
 - include: hidden_service.yml
+  static: no
   when: use_hidden_service
 
 - set_fact:

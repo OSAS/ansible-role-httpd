@@ -90,6 +90,8 @@ automatically enable the hidden service and add the .onion alias to the httpd co
 hardening for anonymisation purpose is done, the goal is mostly to enable regular website to be served over
 tor to let the choice to people.
 
+This feature requires a `tor` role in charge of the Tor base installation. OSAS made [a role](https://gitlab.com/osas/ansible-role-tor) you can use alongside this one.
+
 ## Redirection
 
 If the variable `redirect` is set, the vhost will redirect to the new domain name. This is mostly done for
