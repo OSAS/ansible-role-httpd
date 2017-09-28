@@ -53,7 +53,7 @@
     state: present
   when: log_retention_week is defined
 
-- name: Set _http_common
+- name: Set _httpd_common
   set_fact:
     _httpd_common: True
 

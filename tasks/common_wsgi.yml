@@ -18,7 +18,7 @@
     state: absent
   notify: verify config and restart httpd
 
-- name: Set http_common_wsgi
+- name: Set _httpd_common_wsgi
   set_fact:
     _httpd_common_wsgi: True
 
