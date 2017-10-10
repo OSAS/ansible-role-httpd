@@ -90,11 +90,6 @@ automatically enable the hidden service and add the .onion alias to the httpd co
 hardening for anonymisation purpose is done, the goal is mostly to enable regular website to be served over
 tor to let the choice to people.
 
-## Log retention period
-
-Logs are rotated on a regular basis, and kept for some amount on time on the server. The default is 8 weeks, but it
-can be tweaked with the `log_retention_week` variable
-
 ## Redirection
 
 If the variable `redirect` is set, the vhost will redirect to the new domain name. This is mostly done for

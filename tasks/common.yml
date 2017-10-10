@@ -45,15 +45,6 @@
   - https
   when: ansible_distribution == 'Fedora' or ansible_distribution_major_version == '7'
 
-- name: Set log retention configuration
-  lineinfile:
-    dest: /etc/logrotate.d/httpd
-    regexp: "^(\s+)rotate"
-    backrefs: yes
-    line: "\1rotate {{ log_retention_week }}"
-    state: present
-  when: log_retention_week is defined
-
 - name: Set _httpd_common
   set_fact:
     _httpd_common: True

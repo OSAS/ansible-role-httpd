@@ -1,5 +1,4 @@
 ---
-log_retention_week: 8
 use_letsencrypt: False
 force_tls: False
 use_freeipa: False
