@@ -13,3 +13,4 @@ server_aliases: []
 redirects: []
 wsgi_allow_app_signals: False
 wsgi_threads: 5
+mail_domain: "{{ ansible_domain }}"
