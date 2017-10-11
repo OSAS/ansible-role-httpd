@@ -227,3 +227,19 @@ In order to let a role extend the httpd configuration, a role can drop files end
 The file will be included for TLS and non TLS vhost for now, which might cause some issues. This is planned to be fixed later
 to be able to support WSGI cleanly.
 
+To ease extension without recalculating path and other variables logic, a role extending the vhost configuration can use the `` entrypoint like this:
+```
+- name: Define httpd Variables
+  include_role:
+    name: httpd
+    tasks_from: vhost_vars
+```
+It can then, for example, install a specific configuration fragment like this:
+```
+- name: Install Mailman 2 Web UI Configuration
+  copy:
+    src: mailman2.conf
+    dest: "{{ _vhost_confdir }}/"
+  notify: verify config and restart httpd
+```
+

@@ -1,5 +1,8 @@
 ---
 
+- name: Include distribution variables
+  include: distro_vars.yml
+
 - include: compat.yml
 
 - set_fact:

@@ -1,8 +1,5 @@
 ---
 
-- name: Include distribution variables
-  include: distro_vars.yml
-
 - name: Include common vhost variables
   include: vhost_vars.yml
 
