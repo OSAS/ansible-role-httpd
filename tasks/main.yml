@@ -1,10 +1,10 @@
 ---
 
 - name: Include common vhost variables
-  include: vhost_vars.yml
+  include_tasks: vhost_vars.yml
 
 - name: Include common setup of httpd
-  include: common.yml
+  include_tasks: common.yml
   when: httpd_common is not defined
 
 - name: test if canonical vhost is installed
@@ -13,12 +13,11 @@
   register: canonical_vhost
 
 - name: Setup canonical vhost if not yet defined
-  include: vhost.yml
+  include_tasks: vhost.yml
   vars:
     _website_domain: "{{ ansible_fqdn }}"
     use_tls: False
     use_letsencrypt: False
     use_freeipa: False
-  static: no
   when: "not canonical_vhost.stat.exists"
 

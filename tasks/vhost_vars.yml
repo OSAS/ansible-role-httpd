@@ -1,9 +1,9 @@
 ---
 
 - name: Include distribution variables
-  include: distro_vars.yml
+  include_tasks: distro_vars.yml
 
-- include: compat.yml
+- include_tasks: compat.yml
 
 - name: Define vhost-specific variables
   set_fact:

@@ -5,13 +5,13 @@
   when: "redirect is defined and not redirect | match('^https?://.*/')"
 
 - name: Include common vhost variables
-  include: vhost_vars.yml
+  include_tasks: vhost_vars.yml
 
 - name: Include common setup of httpd
-  include: common.yml
+  include_tasks: common.yml
   when: _httpd_common is not defined
 
-- include: common_tls.yml
+- include_tasks: common_tls.yml
   when: _use_tls and _httpd_common_tls is not defined
 
 - file:
@@ -35,14 +35,14 @@
     content: "# Placeholder"
   name: Create placeholder configuration for {{ _website_domain }}
 
-- include: password.yml
+- include_tasks: password.yml
   when: website_user is defined
 
-- include: document_root.yml
+- include_tasks: document_root.yml
 
-- include: server_alias.yml
+- include_tasks: server_alias.yml
 
-- include: mod_speling.yml
+- include_tasks: mod_speling.yml
 
 - name: Work on port 80 configuration
   set_fact:
@@ -57,28 +57,27 @@
     mode: 0644
   notify: verify config and restart httpd
 
-- include: redirect.yml
+- include_tasks: redirect.yml
 
-- include: redirects.yml
+- include_tasks: redirects.yml
 
-- include: aliases.yml
+- include_tasks: aliases.yml
 
-- include: letsencrypt.yml
+- include_tasks: letsencrypt.yml
   when: use_letsencrypt
 
-- include: freeipa.yml
+- include_tasks: freeipa.yml
   when: use_freeipa
 
-- include: mod_security.yml
+- include_tasks: mod_security.yml
   when: use_mod_sec
 
-- include: redirect_to_https.yml
+- include_tasks: redirect_to_https.yml
 
-- include: wsgi.yml
+- include_tasks: wsgi.yml
   when: wsgi_script is defined and wsgi_script
 
-- include: hidden_service.yml
-  static: no
+- include_tasks: hidden_service.yml
   when: use_hidden_service
 
 - name: Work on port 443 configuration

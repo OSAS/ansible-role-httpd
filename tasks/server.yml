@@ -2,6 +2,6 @@
 
 # regenerate templates affecting server-level configuration
 
-- include: common_wsgi.yml
+- include_tasks: common_wsgi.yml
   when: use_wsgi
 

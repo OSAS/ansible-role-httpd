@@ -4,8 +4,8 @@ galaxy_info:
   description: Simple ansible role to manage httpd, used by others modules
   company: Red Hat
   license: MIT
-  # Use 2.2 due to the include_role module
-  min_ansible_version: 2.2
+  # Use 2.4 due to the new include_* actions
+  min_ansible_version: 2.4
   platforms:
   - name: EL
     versions:
