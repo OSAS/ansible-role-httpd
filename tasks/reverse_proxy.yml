@@ -1,5 +1,0 @@
-# TODO remove after August 2017
-- file:
-    name: "{{ _vhost_confdir }}/reverse_proxy.conf"
-    state: absent
-  notify: verify config and restart httpd

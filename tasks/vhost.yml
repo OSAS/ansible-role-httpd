@@ -67,8 +67,6 @@
 - include: freeipa.yml
   when: use_freeipa
 
-- include: reverse_proxy.yml
-
 - include: mod_security.yml
   when: use_mod_sec
 
