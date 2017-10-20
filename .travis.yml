@@ -24,4 +24,4 @@ script:
 #  - ansible-playbook -i '127.0.0.1,' -c local --sudo -vvvv role.yml
 # verify idempotence ( ie, running a 2nd time shouldn't change anything )
 #  - ansible-playbook -i '127.0.0.1,' -c local --sudo -vvvv role.yml | grep -q 'changed=0.*failed=0'
-  
+
