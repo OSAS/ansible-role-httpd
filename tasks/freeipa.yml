@@ -1,8 +1,12 @@
-- set_fact:
+---
+
+- name: Define certificate paths
+  set_fact:
     key_file: "{{ pki_dir }}/private/{{ _website_domain }}.key"
     cert_file: "{{ pki_dir }}/certs/{{ _website_domain }}.crt"
 
-- fail: msg="Requesting cert for {{ _website_domain }}, a certificate can only be requested for the current server ({{ ansible_fqdn }}) with the freeipa method"
+- name: Fail if certificate do not match server FQDN
+  fail: msg="Requesting cert for {{ _website_domain }}, a certificate can only be requested for the current server ({{ ansible_fqdn }}) with the freeipa method"
   when: _website_domain != ansible_fqdn
 
 - name: Request a freeipa certificate for httpd

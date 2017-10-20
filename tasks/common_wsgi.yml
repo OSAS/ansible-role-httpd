@@ -17,7 +17,8 @@
   notify: verify config and restart httpd
 
 # TODO remove after May 2018
-- file:
+- name: "remove obsolete 'python_global.conf' conffile"
+  file:
     name: "{{ httpd_global_confdir }}/python_global.conf"
     state: absent
   notify: verify config and restart httpd

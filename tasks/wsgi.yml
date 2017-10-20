@@ -19,7 +19,8 @@
   notify: verify config and restart httpd
 
 # TODO remove after May 2018
-- file:
+- name: Remove obsolete WSGI files
+  file:
     name: "{{ item }}"
     state: absent
   with_items:

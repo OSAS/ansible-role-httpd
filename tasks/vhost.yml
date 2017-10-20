@@ -44,10 +44,12 @@
 
 - include: mod_speling.yml
 
-- set_fact:
+- name: Work on port 80 configuration
+  set_fact:
     port: 80
 
-- template:
+- name: Generate vhost main HTTP conffile for {{ _website_domain }}
+  template:
     src: vhost.conf
     dest: "{{ _vhost_conffile_prefix }}.conf"
     owner: root
@@ -79,10 +81,12 @@
   static: no
   when: use_hidden_service
 
-- set_fact:
+- name: Work on port 443 configuration
+  set_fact:
     port: 443
 
-- template:
+- name: Generate vhost main HTTPS conffile for {{ _website_domain }}
+  template:
     src: vhost.conf
     dest: "{{ _vhost_conffile_prefix }}_ssl.conf"
     owner: root

@@ -5,7 +5,8 @@
 
 - include: compat.yml
 
-- set_fact:
+- name: Define vhost-specific variables
+  set_fact:
     _use_tls: False
     _force_tls: False
     _vhost_conffile_prefix: "{{ httpd_vhost_confdir }}/{{ _website_domain }}"

@@ -18,7 +18,8 @@
 - block:
     - debug:
         msg: allow_app_signals is deprecated and replaced by wsgi_allow_app_signals, please update
-    - set_fact:
+    - name: "set 'wsgi_allow_app_signals' after obsolete 'allow_app_signals' variable"
+      set_fact:
         wsgi_allow_app_signals: "{{ allow_app_signals }}"
   when: allow_app_signals is defined
 
