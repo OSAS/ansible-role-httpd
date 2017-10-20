@@ -6,14 +6,14 @@ galaxy_info:
   license: MIT
   # Use 2.2 due to the include_role module
   min_ansible_version: 2.2
-  # Only tested with EL 7 and EL 6. No reason anything do
-  # not work anywhere else, just no time to test.
-  # I would welcome patches
   platforms:
   - name: EL
     versions:
     - 6
     - 7
+  - name: Debian
+    version:
+    - 9
   categories:
   - system
 dependencies: []
