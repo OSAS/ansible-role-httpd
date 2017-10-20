@@ -20,7 +20,7 @@
   meta: flush_handlers
 
 - name: Get the onion hostname
-  shell: cat {{ hs_dir }}/hostname
+  command: "cat {{ hs_dir }}/hostname"
   register: onion_hostname
   changed_when: False
 

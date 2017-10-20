@@ -48,7 +48,7 @@
   notify: restart httpd
 
 - name: Open firewall (EL6)
-  shell: lokkit -s {{ item }}
+  command: "lokkit -s {{ item }}"
   with_items:
   - http
   - https
