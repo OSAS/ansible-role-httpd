@@ -31,7 +31,7 @@
 
 #TODO run the code as a untrusted user
 - name: Run the letsencrypt query
-  command: "certbot --text --renew-by-default --rsa-key-size 3072 --email root+lets-{{ _website_domain }}@{{ mail_domain | default(ansible_domain) }} --domains {{ _website_domain }}{% for item in server_aliases %},{{ item }}{% endfor %} --agree-tos --webroot --webroot-path {{ letsencrypt_root }} certonly"
+  command: "certbot --text --renew-by-default --rsa-key-size 3072 --email root+lets-{{ _website_domain }}@{{ mail_domain | default(ansible_domain) }} --domains {{ _website_domain }}{% for item in server_aliases %},{{ item }}{% endfor %} --agree-tos --webroot --webroot-path {{ letsencrypt_root }} certonly" # noqa 204
   args:
     creates: "/etc/letsencrypt/live/{{ _website_domain }}/privkey.pem"
   notify: reload httpd
