@@ -1,7 +1,7 @@
 ---
 - name: "Verify redirect value and fail"
   fail: msg="Redirect should be a complete URL, not {{ redirect }}"
-  when: "redirect is defined and not redirect | match('^https?://.*/')"
+  when: "redirect is defined and not redirect is match('^https?://.*/')"
 
 - include: compat.yml
 
